@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recipe Roulette</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://img.icons8.com/ios-filled/50/chef-hat.png"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header>
+    <div class="logo">Recipe Roulette</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#search">Search</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="home" id="home">
+    <h1>Discover Recipes Fast 🍽️</h1>
+    <p>Just type the ingredients you have at home and let us find the perfect recipe for you. Quick. Smart. Delicious.</p>
+  </section>
+
+  <!-- ===== TOP RECIPES CAROUSEL ===== -->
+  <section class="carousel-section">
+    <h2>🔥 Top 10 Dishes of the Week</h2>
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <!-- Cards inserted via JS -->
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section id="categories" class="categories-section">
+    <h2 class="section-title">Explore by Category</h2>
+    <div class="category-grid">
+      <div class="category-card" data-category="vegan">🥦 Vegan</div>
+      <div class="category-card" data-category="italian">🍝 Italian</div>
+      <div class="category-card" data-category="dessert">🍰 Dessert</div>
+      <div class="category-card" data-category="gluten free">🌾 Gluten-Free</div>
+      <div class="category-card" data-category="breakfast">🍳 Breakfast</div>
+      <div class="category-card" data-category="quick">⚡ Quick Meals</div>
+    </div>
+  </section>
+
+  <!-- ===== RECIPE SEARCH SECTION ===== -->
+  <section id="search">
+    <div class="container">
+      <h1>Recipe Finder</h1>
+      <div class="input-section">
+        <input type="text" id="ingredients" placeholder="Enter ingredients (comma-separated)" autofocus />
+        <button id="search-btn">Search Recipes</button>
+      </div>
+      <div id="recipe-results" class="recipes"></div>
+    </div>
+  </section>
+
+  <!-- ===== MODAL FOR FULL RECIPE VIEW ===== -->
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about" class="about">
+    <h2>About This Project</h2>
+    <p>
+      Recipe Roulette helps you discover delicious meals using ingredients you already have.
+      Whether you're a student, home cook, or food explorer — just enter a few ingredients and we'll do the rest!
+    </p>
+    <p>
+      Featuring a sleek carousel of the <strong>Top 10 Dishes of the Week</strong>, interactive modals,
+      and localStorage support for saving favorites.
+    </p>
+    <p>
+      Built with HTML, CSS, JavaScript, and the Spoonacular API — and a sprinkle of creativity!
+    </p>
+  </section>
+
+  <!-- ===== FAQ SECTION ===== -->
+  <section id="faq" class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>How do I search for recipes? <span>+</span></h3>
+      <div class="faq-answer">
+        <p>Enter ingredients separated by commas and click on "Search Recipes".</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can I save favorite recipes? <span>+</span></h3>
+      <div class="faq-answer">
+        <p>Yes! Click "Save to Favorites" (❤️) on any recipe, and it’s stored in your browser.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>Where do the recipes come from? <span>+</span></h3>
+      <div class="faq-answer">
+        <p>Recipes are fetched from the Spoonacular API.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3>Is this app mobile-friendly? <span>+</span></h3>
+      <div class="faq-answer">
+        <p>Yes! The layout is responsive and works on all screen sizes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SAVED RECIPES PANEL ===== -->
+  <div id="saved-panel" class="saved-panel hidden">
+    <div class="saved-header">
+      <h3>Saved Recipes</h3>
+      <button id="close-saved">×</button>
+    </div>
+    <div id="saved-list" class="saved-list"></div>
+  </div>
+  <button id="open-saved" class="open-saved-btn">💾 Saved</button>
+
+  <!-- ===== LOADER ===== -->
+  <div id="loader" class="food-loader hidden">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Loading..." />
+    <p>Cooking up something delicious...</p>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-branding">
+        <h2>Recipe Roulette</h2>
+        <p>We suggest random recipes based on ingredients you have. Discover something tasty today!</p>
+        <ul class="footer-contact">
+          <li><i class="fas fa-phone"></i> +1 23 456 789</li>
+          <li><i class="fas fa-envelope"></i> support@reciperoulette.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Recipe Road, CO, USA</li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#search">Recipe Suggestions</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#faq">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <div class="footer-bottom">&copy; 2025 Recipe Roulette. All rights reserved.</div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
